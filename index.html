@@ -41,12 +41,11 @@ body.megashake{animation:mshake .6s ease-out}
 
 .fx{position:fixed;inset:0;pointer-events:none;overflow:hidden}
 .snow-l{z-index:1;opacity:0;transition:opacity 1.5s}
-body.open .snow-l,body[class*=“c”] .snow-l{opacity:1}
+body.open .snow-l,body.c1 .snow-l,body.c2 .snow-l,body.c3 .snow-l,body.c4 .snow-l,body.c5 .snow-l{opacity:1}
 .husky-l{z-index:3}.paw-l{z-index:5}.combo-l{z-index:8}
 .flash-l{z-index:100;background:#fff;opacity:0;transition:opacity .1s;pointer-events:none}
 .flash-l.flash{opacity:.6;transition:opacity 0s}
 
-/* snow */
 .sf{position:absolute;top:-30px;color:#c8d8e4;animation:snowfall var(–d) var(–dl) linear infinite}
 @keyframes snowfall{
 0%{transform:translateY(0) translateX(0) rotate(0)}
@@ -54,47 +53,31 @@ body.open .snow-l,body[class*=“c”] .snow-l{opacity:1}
 100%{transform:translateY(105vh) translateX(calc(var(–dr)*-.5)) rotate(360deg)}
 }
 
-/* paw prints */
 .pp{position:absolute;font-size:28px;animation:pf 1.4s ease-out forwards}
 @keyframes pf{0%{opacity:.9;transform:scale(1.3) rotate(var(–r))}100%{opacity:0;transform:scale(.3) rotate(var(–r)) translateY(-40px)}}
 
-/* ═══ FLYING HUSKIES — “coin toss” arc toward camera then away ═══ */
+/* huskies styled but animated via JS */
 .fh{
-position:absolute;
-border-radius:50%;object-fit:cover;
+position:absolute;border-radius:50%;object-fit:cover;
 border:3px solid rgba(255,255,255,.85);
 filter:drop-shadow(0 6px 20px rgba(0,0,0,.35));
-animation:coinToss var(–dur) var(–delay) cubic-bezier(.2,.8,.3,1) forwards;
-/* placed at random scattered positions */
-left:var(–lx);top:var(–ly);
-width:20px;height:20px;
-opacity:0;
+will-change:transform,opacity;
 }
-@keyframes coinToss{
-0%{
-opacity:0;
-transform:scale(.15) rotate(var(–r0)) translateZ(0);
+.hr{
+position:absolute;border-radius:50%;object-fit:cover;
+border:3px solid rgba(255,255,255,.9);
+filter:drop-shadow(0 8px 24px rgba(0,0,0,.4));
+will-change:transform,opacity;
 }
-20%{
-opacity:1;
-transform:scale(var(–peak)) rotate(calc(var(–r0) + var(–spin)*.3)) translateZ(0);
-}
-50%{
-/* apex — biggest, right at camera */
-opacity:1;
-transform:scale(var(–peak)) rotate(calc(var(–r0) + var(–spin)*.6)) translateZ(0);
-}
-80%{
-opacity:.8;
-transform:scale(var(–land)) rotate(calc(var(–r0) + var(–spin)*.9)) translateZ(0);
-}
-100%{
-opacity:0;
-transform:scale(var(–land)) rotate(calc(var(–r0) + var(–spin))) translateZ(0);
-}
+.hr-big{
+position:absolute;border-radius:50%;object-fit:cover;
+border:4px solid rgba(255,255,255,.95);
+filter:drop-shadow(0 12px 40px rgba(0,0,0,.5));
+will-change:transform,opacity;
 }
 
-/* ═══ HUSKY RAIN — spectacular event ═══ */
+.bp{position:absolute;will-change:transform,opacity}
+
 .rain-overlay{
 position:fixed;inset:0;z-index:50;pointer-events:none;
 background:radial-gradient(circle,transparent 30%,rgba(0,0,0,.3));
@@ -102,48 +85,6 @@ opacity:0;transition:opacity .3s;
 }
 .rain-overlay.active{opacity:1}
 
-.hr{
-position:absolute;
-border-radius:50%;object-fit:cover;
-border:3px solid rgba(255,255,255,.9);
-filter:drop-shadow(0 8px 24px rgba(0,0,0,.4));
-animation:huskyRain var(–rd) var(–rdy) ease-in forwards;
-left:var(–rx);top:-120px;
-width:var(–rs);height:var(–rs);
-}
-@keyframes huskyRain{
-0%{transform:translateY(0) rotate(0) scale(.6);opacity:0}
-10%{opacity:1;transform:translateY(10vh) rotate(var(–rr1)) scale(1)}
-40%{transform:translateY(40vh) rotate(var(–rr2)) scale(1.3)}
-60%{transform:translateY(55vh) rotate(var(–rr3)) scale(1.1)}
-75%{transform:translateY(70vh) rotate(var(–rr2)) scale(.9)}
-90%{opacity:.8;transform:translateY(85vh) rotate(var(–rr1)) scale(.7)}
-100%{opacity:0;transform:translateY(110vh) rotate(var(–rr3)) scale(.4)}
-}
-
-/* big dramatic rain husky */
-.hr-big{
-position:absolute;
-border-radius:50%;object-fit:cover;
-border:4px solid rgba(255,255,255,.95);
-filter:drop-shadow(0 12px 40px rgba(0,0,0,.5));
-animation:bigDrop var(–brd) var(–brdy) cubic-bezier(.2,.6,.3,1) forwards;
-left:var(–brx);top:-200px;
-width:var(–brs);height:var(–brs);
-}
-@keyframes bigDrop{
-0%{transform:translateY(0) scale(.3) rotate(0);opacity:0}
-15%{opacity:1;transform:translateY(15vh) scale(1.6) rotate(15deg)}
-45%{transform:translateY(45vh) scale(2) rotate(-10deg)}
-70%{transform:translateY(65vh) scale(1.4) rotate(8deg);opacity:.9}
-100%{transform:translateY(110vh) scale(.5) rotate(-20deg);opacity:0}
-}
-
-/* burst particles */
-.bp{position:absolute;animation:bf var(–bd) ease-out forwards;font-size:var(–bs)}
-@keyframes bf{0%{transform:translate(0,0) scale(.5);opacity:1}100%{transform:translate(var(–bx),var(–by)) scale(var(–bsc));opacity:0}}
-
-/* envelope */
 .env{text-align:center;cursor:pointer;z-index:2;animation:ef 3s ease-in-out infinite}
 .env.exit{animation:eo 1.1s ease-in-out forwards}
 .env-i{font-size:100px;margin-bottom:24px;filter:drop-shadow(0 12px 32px rgba(0,0,0,.3))}
@@ -153,7 +94,6 @@ width:var(–brs);height:var(–brs);
 @keyframes eo{0%{transform:scale(1);opacity:1}50%{transform:scale(1.4) rotate(6deg);opacity:.7}100%{transform:scale(2.5);opacity:0}}
 @keyframes gp{0%,100%{opacity:.45}50%{opacity:.9}}
 
-/* card */
 .card{z-index:2;text-align:center;max-width:440px;width:90%;padding:36px 24px;display:none;flex-direction:column;align-items:center;gap:20px;opacity:0;transform:translateY(40px)}
 .card.show{display:flex;animation:fiu 1s ease-out forwards}
 @keyframes fiu{0%{opacity:0;transform:translateY(40px)}100%{opacity:1;transform:translateY(0)}}
@@ -163,7 +103,6 @@ width:var(–brs);height:var(–brs);
 .cb{animation:blink .8s step-end infinite;margin-left:2px}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
 
-/* button */
 .btn{position:relative;background:linear-gradient(135deg,#4a90b8,#357a9e 50%,#2d6a8a);color:#fff;border:none;padding:20px 48px;font-family:‘Permanent Marker’,cursive;font-size:24px;border-radius:60px;cursor:pointer;letter-spacing:2px;box-shadow:0 6px 24px rgba(45,106,138,.4),0 2px 8px rgba(0,0,0,.15),inset 0 1px 0 rgba(255,255,255,.2);transition:transform .15s;z-index:6}
 .btn:hover{transform:scale(1.05)}.btn:active{transform:scale(.93)}
 .btn.mega{background:linear-gradient(135deg,#e74c3c,#c0392b);box-shadow:0 6px 30px rgba(231,76,60,.5);animation:bp2 .6s ease-in-out infinite;padding:22px 52px;font-size:26px}
@@ -174,44 +113,31 @@ width:var(–brs);height:var(–brs);
 @keyframes bra{0%{filter:hue-rotate(0)}100%{filter:hue-rotate(360deg)}}
 @keyframes bgs{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
 
-/* combo */
 .combo{position:fixed;top:20px;right:20px;z-index:9;font-family:‘Permanent Marker’,cursive;font-size:24px;color:#e74c3c;opacity:0;transition:opacity .3s;text-shadow:0 2px 8px rgba(231,76,60,.3);text-align:center}
 .combo.show{opacity:1}.combo.pop{animation:cpop .3s ease-out}
 @keyframes cpop{0%{transform:scale(1)}50%{transform:scale(1.5)}100%{transform:scale(1)}}
 .cl{font-size:11px;font-family:‘Cormorant Garamond’,serif;color:#8a9eaa;letter-spacing:3px;text-transform:uppercase;text-shadow:none}
 .ctt{font-size:14px;color:#9b59b6;margin-top:2px}
 
-/* sign off */
 .so{opacity:0;transform:translateY(15px);transition:opacity .8s,transform .8s}
 .so.show{opacity:1;transform:translateY(0)}
 .ht{font-size:44px;margin-bottom:8px;display:inline-block;animation:hb 1.5s ease-in-out infinite}
 @keyframes hb{0%,100%{transform:scale(1)}15%{transform:scale(1.15)}30%{transform:scale(1)}45%{transform:scale(1.1)}}
-.st{font-family:‘Cormorant Garamond’,serif;font-size:16px;color:#8a9eaa;font-style:italic;letter-spacing:1px}
+.stt{font-family:‘Cormorant Garamond’,serif;font-size:16px;color:#8a9eaa;font-style:italic;letter-spacing:1px}
 .fpp{margin-top:12px;opacity:.25;font-size:18px;letter-spacing:12px}
 .thi{font-family:‘Cormorant Garamond’,serif;font-size:11px;color:#b0bec5;letter-spacing:2px;opacity:.45}
 
-/* float text */
-.ftt{position:absolute;font-family:‘Permanent Marker’,cursive;white-space:nowrap;pointer-events:none;text-shadow:0 2px 8px rgba(0,0,0,.15);animation:fu var(–ftd) ease-out forwards}
-@keyframes fu{0%{opacity:1;transform:translateY(0) scale(var(–fts)) rotate(var(–ftr))}100%{opacity:0;transform:translateY(-140px) scale(calc(var(–fts)*.5))}}
+.ftt{position:absolute;font-family:‘Permanent Marker’,cursive;white-space:nowrap;pointer-events:none;text-shadow:0 2px 8px rgba(0,0,0,.15);will-change:transform,opacity}
 
-/* trail */
 .tp{position:absolute;font-size:16px;opacity:0;animation:tpf 2s ease-out forwards;pointer-events:none}
 @keyframes tpf{0%{opacity:.6;transform:scale(1)}100%{opacity:0;transform:scale(.5)}}
 
-/* rain event text */
 .rain-title{
 position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);
 z-index:55;font-family:‘Permanent Marker’,cursive;
-font-size:48px;color:white;text-shadow:0 4px 20px rgba(0,0,0,.5),0 0 60px rgba(231,76,60,.4);
-opacity:0;pointer-events:none;
-animation:rainTitle 2.5s ease-out forwards;
-}
-@keyframes rainTitle{
-0%{opacity:0;transform:translate(-50%,-50%) scale(.3) rotate(-10deg)}
-15%{opacity:1;transform:translate(-50%,-50%) scale(1.3) rotate(3deg)}
-30%{transform:translate(-50%,-50%) scale(1) rotate(-1deg)}
-70%{opacity:1;transform:translate(-50%,-50%) scale(1.05) rotate(0)}
-100%{opacity:0;transform:translate(-50%,-50%) scale(1.5) rotate(0)}
+font-size:42px;color:white;text-shadow:0 4px 20px rgba(0,0,0,.5),0 0 60px rgba(231,76,60,.4);
+pointer-events:none;text-align:center;line-height:1.3;
+will-change:transform,opacity;
 }
 </style>
 
@@ -237,7 +163,7 @@ animation:rainTitle 2.5s ease-out forwards;
   <div class="dv"></div>
   <div class="msg" id="msg"></div>
   <button class="btn" id="btn" onclick="doHowl(event)">🐺 HOWL! 🐺</button>
-  <div class="so" id="so"><div class="ht">❤️</div><div class="st">With all my love x</div></div>
+  <div class="so" id="so"><div class="ht">❤️</div><div class="stt">With all my love x</div></div>
   <div class="fpp">🐾🐾🐾</div>
   <div class="thi">tap anywhere for paw prints</div>
 </div>
@@ -266,11 +192,15 @@ const HI = [
     "data:image/jpeg;base64,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"
   ];
 
+// Preload all images into browser cache on page load
+const preloaded = [];
+HI.forEach(src => { const img = new Image(); img.src = src; preloaded.push(img); });
+
 const MSG="She is the greatest mom to humans and huskys alike";
 const HTX=["Awoooo!","AWOOO!","Woof!","HOWL!","Best Mom!","🐾🐾🐾","AROOO!","We love you!","Pack Mom!","Alpha Mom!","AWOOOOOO!","Top Dog Mom!","Queen of the Pack!","MEGA WOOF!","HOWL x100!","MOM MOM MOM!","UNSTOPPABLE!","LEGENDARY MOM!","THE GOAT 🐐","ULTIMATE MOM ACHIEVED!"];
 const CTT={1:"",3:"Good Boy!",5:"Pack Leader!",8:"MEGA HOWL!",12:"ULTRA COMBO!",15:"🔥 GOD MODE 🔥",20:"🌟 LEGENDARY! 🌟",25:"💎 UNSTOPPABLE!! 💎",30:"👑 MOM QUEEN!!! 👑"};
 const FC=["#e74c3c","#3498db","#2ecc71","#9b59b6","#e67e22","#1abc9c","#f39c12","#d35400"];
-const RAIN_TITLES=["🐺 IT'S RAINING HUSKIES! 🐺","🌧️ HUSKY STORM! 🌧️","☁️ FLOOF DOWNPOUR! ☁️","🐾 PAWVALANCHE! 🐾","⛈️ CATEGORY 5 HUSKY! ⛈️"];
+const RTT=["🐺 IT'S RAINING\nHUSKIES! 🐺","🌧️ HUSKY STORM! 🌧️","☁️ FLOOF\nDOWNPOUR! ☁️","🐾 PAWVALANCHE! 🐾","⛈️ CATEGORY 5\nHUSKY! ⛈️"];
 
 let isOpen=false,co=0,coT=null,ac=null,rainActive=false;
 
@@ -293,7 +223,6 @@ function pH(n){try{iA();let t=ac.currentTime,b=180+Math.random()*100,v=Math.min(
   g3.gain.setValueAtTime(0,t+d);g3.gain.linearRampToValueAtTime(.05,t+d+.04);
   g3.gain.exponentialRampToValueAtTime(.001,t+d+.6);o3.start(t+d);o3.stop(t+d+.7)}}catch(e){}}
 
-// Rain howl — deeper, longer, dramatic
 function pRainHowl(){try{iA();let t=ac.currentTime;
   for(let i=0;i<6;i++){let o=ac.createOscillator(),g=ac.createGain();o.connect(g);g.connect(ac.destination);
   o.type=['sine','triangle','sawtooth','sine','triangle','sine'][i];
@@ -322,149 +251,159 @@ function typeMsg(){let el=document.getElementById("msg"),i=0;
 
 function rI(){return HI[Math.floor(Math.random()*HI.length)]}
 
-// ═══ COIN-TOSS HUSKIES — scattered across screen, fly toward you then land ═══
+// ═══ ALL ANIMATIONS VIA WEB ANIMATIONS API — works everywhere ═══
+
 function launch(cnt,n){
   let l=document.getElementById("hL"),vw=innerWidth,vh=innerHeight;
   for(let i=0;i<cnt;i++){
     let h=document.createElement("img");h.className="fh";h.src=rI();
-    // Random position scattered across the full viewport
+    let sz=70+Math.random()*50+n*3;
+    h.style.width=sz+"px";h.style.height=sz+"px";
+    // Scatter across full viewport
     let px=Math.random()*vw;
     let py=Math.random()*vh;
-    // Peak size — bigger at higher combos
-    let peak=1.2+Math.random()*1+n*.08;
-    let land=.3+Math.random()*.3;
-    let dur=.8+Math.random()*1;
-    let delay=Math.random()*.6;
-    h.style.setProperty("--lx",px+"px");
-    h.style.setProperty("--ly",py+"px");
-    h.style.setProperty("--peak",peak.toFixed(2));
-    h.style.setProperty("--land",land.toFixed(2));
-    h.style.setProperty("--dur",dur+"s");
-    h.style.setProperty("--delay",delay+"s");
-    h.style.setProperty("--r0",(Math.random()*40-20)+"deg");
-    h.style.setProperty("--spin",((Math.random()-.5)*360)+"deg");
-    // Base size — big enough to be impressive
-    let sz=60+Math.random()*40+n*2;
-    h.style.width=sz+"px";h.style.height=sz+"px";
+    h.style.left=px+"px";h.style.top=py+"px";
+    let peak=1.4+Math.random()*1+n*.08;
+    let land=.25+Math.random()*.2;
+    let r0=Math.random()*40-20;
+    let spin=(Math.random()-.5)*300;
+    let dur=1000+Math.random()*800;
+    let delay=Math.random()*500;
     l.appendChild(h);
-    setTimeout(()=>h.remove(),(dur+delay+.3)*1000);
+    let anim=h.animate([
+      {opacity:0,transform:"scale(0.1) rotate("+r0+"deg)",offset:0},
+      {opacity:1,transform:"scale("+peak+") rotate("+(r0+spin*.4)+"deg)",offset:.3},
+      {opacity:1,transform:"scale("+(peak*.95)+") rotate("+(r0+spin*.6)+"deg)",offset:.5},
+      {opacity:.7,transform:"scale("+land+") rotate("+(r0+spin*.85)+"deg)",offset:.8},
+      {opacity:0,transform:"scale("+(land*.5)+") rotate("+(r0+spin)+"deg)",offset:1}
+    ],{duration:dur,delay:delay,easing:"cubic-bezier(.2,.8,.3,1)",fill:"forwards"});
+    anim.onfinish=()=>h.remove();
   }
 }
 
-// ═══ HUSKY RAIN — spectacular unique event ═══
 function huskyRainEvent(){
-  if(rainActive)return;
-  rainActive=true;
-
-  pRainHowl();
-
-  // Darken overlay
-  let ov=document.getElementById("rainOv");
-  ov.classList.add("active");
+  if(rainActive)return;rainActive=true;pRainHowl();
+  let ov=document.getElementById("rainOv");ov.classList.add("active");
 
   // Title
-  let title=document.createElement("div");
-  title.className="rain-title";
-  title.textContent=RAIN_TITLES[Math.floor(Math.random()*RAIN_TITLES.length)];
+  let title=document.createElement("div");title.className="rain-title";
+  title.textContent=RTT[Math.floor(Math.random()*RTT.length)];
   document.body.appendChild(title);
-  setTimeout(()=>title.remove(),3000);
+  title.animate([
+    {opacity:0,transform:"translate(-50%,-50%) scale(.3) rotate(-10deg)"},
+    {opacity:1,transform:"translate(-50%,-50%) scale(1.2) rotate(3deg)",offset:.15},
+    {opacity:1,transform:"translate(-50%,-50%) scale(1) rotate(0)",offset:.5},
+    {opacity:0,transform:"translate(-50%,-50%) scale(1.5) rotate(0)"}
+  ],{duration:2500,fill:"forwards"}).onfinish=()=>title.remove();
 
-  let l=document.getElementById("hL"),vw=innerWidth;
-
-  // Multi-flash intro
   flash();setTimeout(flash,100);setTimeout(flash,200);
-
-  // Mega shake
   shake(true);setTimeout(()=>shake(true),400);
 
-  // Wave 1: wall of regular huskies (staggered)
+  let l=document.getElementById("hL"),vw=innerWidth,vh=innerHeight;
+
+  // Wave 1: 40 huskies raining
   for(let i=0;i<40;i++){
     setTimeout(()=>{
       let h=document.createElement("img");h.className="hr";h.src=rI();
       let sz=50+Math.random()*60;
-      h.style.setProperty("--rx",Math.random()*vw+"px");
-      h.style.setProperty("--rs",sz+"px");
-      h.style.setProperty("--rd",(2.5+Math.random()*2)+"s");
-      h.style.setProperty("--rdy","0s");
-      h.style.setProperty("--rr1",(Math.random()*60-30)+"deg");
-      h.style.setProperty("--rr2",(Math.random()*90-45)+"deg");
-      h.style.setProperty("--rr3",(Math.random()*120-60)+"deg");
+      h.style.width=sz+"px";h.style.height=sz+"px";
+      h.style.left=Math.random()*vw+"px";h.style.top="-80px";
       l.appendChild(h);
-      setTimeout(()=>h.remove(),6000);
+      let rr1=Math.random()*60-30,rr2=Math.random()*90-45;
+      h.animate([
+        {transform:"translateY(0) rotate(0) scale(.6)",opacity:0,offset:0},
+        {transform:"translateY("+(.1*vh)+"px) rotate("+rr1+"deg) scale(1)",opacity:1,offset:.1},
+        {transform:"translateY("+(.4*vh)+"px) rotate("+rr2+"deg) scale(1.3)",opacity:1,offset:.4},
+        {transform:"translateY("+(.6*vh)+"px) rotate("+(rr1*.5)+"deg) scale(1)",opacity:.9,offset:.6},
+        {transform:"translateY("+(.85*vh)+"px) rotate("+rr2+"deg) scale(.7)",opacity:.6,offset:.85},
+        {transform:"translateY("+(vh+80)+"px) rotate("+(rr1*2)+"deg) scale(.3)",opacity:0,offset:1}
+      ],{duration:2500+Math.random()*2000,fill:"forwards"}).onfinish=()=>h.remove();
     },i*80);
   }
 
-  // Wave 2: big dramatic drops (delayed)
+  // Wave 2: 8 big dramatic drops
   setTimeout(()=>{
     for(let i=0;i<8;i++){
       setTimeout(()=>{
         let h=document.createElement("img");h.className="hr-big";h.src=rI();
-        let sz=100+Math.random()*80;
-        h.style.setProperty("--brx",(Math.random()*(vw-sz))+"px");
-        h.style.setProperty("--brs",sz+"px");
-        h.style.setProperty("--brd",(3+Math.random()*1.5)+"s");
-        h.style.setProperty("--brdy","0s");
+        let sz=110+Math.random()*80;
+        h.style.width=sz+"px";h.style.height=sz+"px";
+        let bx=Math.random()*(vw-sz);
+        h.style.left=bx+"px";h.style.top="-200px";
         l.appendChild(h);
-        setTimeout(()=>h.remove(),5000);
-        // Burst when they "hit"
-        setTimeout(()=>{
-          let bx=parseFloat(h.style.getPropertyValue("--brx"))+sz/2;
-          burst(bx,innerHeight*.65,20,15);
-        },2000);
+        h.animate([
+          {transform:"translateY(0) scale(.3) rotate(0)",opacity:0,offset:0},
+          {transform:"translateY("+(.15*vh)+"px) scale(1.6) rotate(15deg)",opacity:1,offset:.15},
+          {transform:"translateY("+(.45*vh)+"px) scale(2) rotate(-10deg)",opacity:1,offset:.45},
+          {transform:"translateY("+(.65*vh)+"px) scale(1.4) rotate(8deg)",opacity:.9,offset:.7},
+          {transform:"translateY("+(vh+100)+"px) scale(.5) rotate(-20deg)",opacity:0,offset:1}
+        ],{duration:3000+Math.random()*1500,fill:"forwards"}).onfinish=()=>h.remove();
+        setTimeout(()=>burst(bx+sz/2,vh*.65,20,15),2000);
       },i*250);
     }
   },800);
 
-  // Wave 3: final barrage
+  // Wave 3: fast barrage
   setTimeout(()=>{
     flash();shake(true);
     for(let i=0;i<25;i++){
       setTimeout(()=>{
         let h=document.createElement("img");h.className="hr";h.src=rI();
         let sz=40+Math.random()*70;
-        h.style.setProperty("--rx",Math.random()*vw+"px");
-        h.style.setProperty("--rs",sz+"px");
-        h.style.setProperty("--rd",(1.5+Math.random()*1.5)+"s");
-        h.style.setProperty("--rdy","0s");
-        h.style.setProperty("--rr1",(Math.random()*80-40)+"deg");
-        h.style.setProperty("--rr2",(Math.random()*100-50)+"deg");
-        h.style.setProperty("--rr3",(Math.random()*120-60)+"deg");
+        h.style.width=sz+"px";h.style.height=sz+"px";
+        h.style.left=Math.random()*vw+"px";h.style.top="-80px";
         l.appendChild(h);
-        setTimeout(()=>h.remove(),5000);
+        let rr=Math.random()*120-60;
+        h.animate([
+          {transform:"translateY(0) rotate(0) scale(.8)",opacity:.9,offset:0},
+          {transform:"translateY("+(vh+80)+"px) rotate("+rr+"deg) scale(.3)",opacity:0,offset:1}
+        ],{duration:1500+Math.random()*1500,fill:"forwards"}).onfinish=()=>h.remove();
       },i*50);
     }
   },2500);
 
-  // Emoji bursts across screen during rain
+  // Bursts during rain
   for(let i=0;i<12;i++){
-    setTimeout(()=>{
-      burst(Math.random()*vw,Math.random()*innerHeight,15,15);
-    },500+i*200);
+    setTimeout(()=>burst(Math.random()*vw,Math.random()*vh,15,15),500+i*200);
   }
 
-  // End event
-  setTimeout(()=>{
-    ov.classList.remove("active");
-    rainActive=false;
-  },5000);
+  setTimeout(()=>{ov.classList.remove("active");rainActive=false},5500);
 }
 
-function burst(x,y,cnt,n){let l=document.getElementById("cL");
+function burst(x,y,cnt,n){
+  let l=document.getElementById("cL");
   let em=["🐾","💙","❄️","🩵","⭐","✨","💜","❤️"];
-  for(let i=0;i<cnt;i++){let p=document.createElement("span");p.className="bp";
-  p.textContent=em[Math.floor(Math.random()*em.length)];
-  let a=(Math.PI*2/cnt)*i+Math.random()*.4,d=50+Math.random()*120+n*12;
-  p.style.left=x+"px";p.style.top=y+"px";
-  p.style.setProperty("--bx",Math.cos(a)*d+"px");p.style.setProperty("--by",Math.sin(a)*d+"px");
-  p.style.setProperty("--bd",(.5+Math.random()*.7)+"s");p.style.setProperty("--bs",(14+Math.random()*18+n*2)+"px");
-  p.style.setProperty("--bsc",(.4+Math.random()).toFixed(2));l.appendChild(p);setTimeout(()=>p.remove(),1500)}}
+  for(let i=0;i<cnt;i++){
+    let p=document.createElement("span");p.className="bp";
+    p.textContent=em[Math.floor(Math.random()*em.length)];
+    p.style.left=x+"px";p.style.top=y+"px";
+    p.style.fontSize=(14+Math.random()*18+n*2)+"px";
+    let a=(Math.PI*2/cnt)*i+Math.random()*.4;
+    let d=50+Math.random()*120+n*12;
+    let bx=Math.cos(a)*d,by=Math.sin(a)*d;
+    l.appendChild(p);
+    p.animate([
+      {transform:"translate(0,0) scale(.5)",opacity:1},
+      {transform:"translate("+bx+"px,"+by+"px) scale("+(0.4+Math.random())+")",opacity:0}
+    ],{duration:500+Math.random()*700,fill:"forwards"}).onfinish=()=>p.remove();
+  }
+}
 
-function fltTxt(x,y,txt,n){let l=document.getElementById("cL"),f=document.createElement("div");f.className="ftt";
-  f.textContent=txt;f.style.left=(x+(Math.random()-.5)*80)+"px";f.style.top=(y-40+(Math.random()-.5)*40)+"px";
+function fltTxt(x,y,txt,n){
+  let l=document.getElementById("cL"),f=document.createElement("div");f.className="ftt";
+  f.textContent=txt;
+  f.style.left=(x+(Math.random()-.5)*80)+"px";
+  f.style.top=(y-40+(Math.random()-.5)*40)+"px";
   f.style.color=FC[Math.floor(Math.random()*FC.length)];
-  f.style.setProperty("--fts",(.8+Math.min(n*.12,2)).toFixed(2));f.style.setProperty("--ftd","1.5s");
-  f.style.setProperty("--ftr",((Math.random()-.5)*20)+"deg");f.style.fontSize=(20+Math.min(n*2,34))+"px";
-  l.appendChild(f);setTimeout(()=>f.remove(),1700)}
+  f.style.fontSize=(20+Math.min(n*2,34))+"px";
+  let sc=.8+Math.min(n*.12,2);
+  let rot=(Math.random()-.5)*20;
+  l.appendChild(f);
+  f.animate([
+    {opacity:1,transform:"translateY(0) scale("+sc+") rotate("+rot+"deg)"},
+    {opacity:0,transform:"translateY(-140px) scale("+(sc*.5)+") rotate("+(rot*.5)+"deg)"}
+  ],{duration:1500,fill:"forwards"}).onfinish=()=>f.remove();
+}
 
 function flash(){let f=document.getElementById("fL");f.classList.add("flash");setTimeout(()=>f.classList.remove("flash"),80)}
 function shake(m){document.body.classList.remove("shake","megashake");void document.body.offsetWidth;
@@ -497,12 +436,10 @@ function doHowl(e){
   if(co>=3)shake(false);
   if(co>=8){shake(true);flash()}
   if(co>=12&&!rainActive)huskyRainEvent();
-  if(co>=15){setTimeout(()=>launch(15,n),100);setTimeout(()=>burst(cx,cy,30,n),200);
-    setTimeout(()=>burst(Math.random()*innerWidth,Math.random()*innerHeight,15,n),300)}
+  if(co>=15){setTimeout(()=>launch(15,n),100);setTimeout(()=>burst(cx,cy,30,n),200)}
   if(co>=20){
     for(let i=0;i<5;i++)setTimeout(()=>{burst(Math.random()*innerWidth,Math.random()*innerHeight,20,n);launch(8,n)},i*100);
-    if(!rainActive)huskyRainEvent();
-    flash();setTimeout(flash,150);setTimeout(flash,300)}
+    if(!rainActive)huskyRainEvent();flash();setTimeout(flash,150);setTimeout(flash,300)}
 }
 
 document.body.addEventListener("click",e=>{if(!isOpen)return;let l=document.getElementById("pL");
